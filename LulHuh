@@ -1,0 +1,133 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Blade ball", HidePremium = false, SaveConfig = true, IntroTaxt = "BLADEBALL" , ConfigFolder = "Bladeball"})
+
+OrionLib:MakeNotification({
+Name = "Hey",
+Content = "Thanks for uesing me",
+Image = "rbxassetid://4483345998",
+Time = 5
+})
+
+local MainTab = Window:MakeTab({
+  Name = "MainTab",
+  Icon = "rbxassetid://4483345998",
+  PremiumOnly = false
+})
+
+
+local Section = MainTab:AddSection({
+  Name = "Main"
+})
+
+
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+
+
+local TAB_NAME = "Main"
+local AUTO_PARRY_KEY = Enum.KeyCode.P
+local AUTO_BLOCK_KEY = Enum.KeyCode.B
+
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "AutoButtonGui"
+gui.Parent = playerGui
+
+local mainTab = Instance.new("Frame")
+mainTab.Name = TAB_NAME
+mainTab.Parent = gui
+
+local autoParryButton = Instance.new("TextButton")
+autoParryButton.Name = "AutoParryButton"
+autoParryButton.Parent = mainTab
+autoParryButton.Position = UDim2.new(0, 10, 0, 10)
+autoParryButton.Size = UDim2.new(0, 100, 0, 30)
+autoParryButton.Text = "Auto Parry (P)"
+autoParryButton.MouseButton1Click:Connect(function()
+    
+    print("Auto Parry toggled")
+end)
+
+local autoBlockButton = Instance.new("TextButton")
+autoBlockButton.Name = "AutoBlockButton"
+autoBlockButton.Parent = mainTab
+autoBlockButton.Position = UDim2.new(0, 10, 0, 50)
+autoBlockButton.Size = UDim2.new(0, 100, 0, 30)
+autoBlockButton.Text = "Auto Block (B)"
+autoBlockButton.MouseButton1Click:Connect(function()
+    
+    print("Auto Block toggled")
+end)
+
+
+UIS.InputBegan:Connect(function(input, gameProcessedEvent)
+    if not gameProcessedEvent then
+        if input.KeyCode == AUTO_PARRY_KEY then
+            autoParryButton:Click()
+        elseif input.KeyCode == AUTO_BLOCK_KEY then
+            autoBlockButton:Click()
+        end
+    end
+end)
+
+MainTab:AddToggle({
+  Name = "This is a 100 Walk toggle!",
+  Default = false,
+  Callback = function(Value)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100
+  end    
+})
+
+--Other
+
+local OtherTab = Window:MakeTab({
+	Name = "OtherTab",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = OtherTab:AddSection({
+	Name = "Other"
+})
+
+OtherTab:AddButton({
+  Name = "Fly",
+  Callback = function()      loadstring(game:HttpGet(('https://pastebin.com/raw/bHa6HDFc'),true))()
+    end    
+})
+
+OtherTab:AddButton({
+	Name = "INFINITY YELD",
+	Callback = function()  		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+  	end    
+})
+--Pc SpeedPower
+
+local PcTab = Window:MakeTab({
+	Name = "PcTab",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = PcTab:AddSection({
+	Name = "PcWalkSpeeds"
+})
+
+PcTab:AddSlider({
+	Name = "WalkSpeed",
+	Min = 0,
+	Max = 20,
+	Default = 20,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "WS",
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+	end    
+})
+    
+OrionLib:Init()
